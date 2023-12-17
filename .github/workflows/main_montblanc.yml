@@ -14,7 +14,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4  
+        with:
+          submodules: true 
+
 
       - name: Set up Node.js version
         uses: actions/setup-node@v3
@@ -23,7 +26,7 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          cd client@213b6d9
+          cd client
           npm install
           npm run build
           cd ../server
