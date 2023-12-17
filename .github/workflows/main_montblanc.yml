@@ -23,7 +23,7 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          cd client
+          cd client@213b6d9
           npm install
           npm run build
           cd ../server
