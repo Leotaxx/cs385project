@@ -6,7 +6,7 @@ import { showUserCars, addCar,deleteCar} from '../controllers/cars';
 
 
 export default(router:express.Router)=>{
-    router.get('/cars/:id/:cid',isAuthenticated,isOwner,showUserCars);
+    router.get('/cars/:id',isAuthenticated,isOwner,showUserCars);
     router.post('/cars/:id',isAuthenticated,isOwner,addCar);
     router.post('/cars/:id/:cid',isAuthenticated,isOwner,deleteCar);
-};5
+};

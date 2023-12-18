@@ -20,7 +20,16 @@ export const login = async (req:express.Request,res:express.Response)=>{
         const salt =random();
         user.authentication.sessionToken = authentication(salt,user._id.toString());
         await user.save();
-        res.cookie('LEO-REST-API', user.authentication.sessionToken, { domain: 'localhost', path: '/' ,httpOnly: true,secure: false,});
+        const cookieOptions = {
+            path: '/',
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // Secure in production
+             // Adjust according to your requirements
+            // Dynamically set domain based on environment
+            domain: process.env.NODE_ENV === 'production' ? 'montblanc.azurewebsites.net' : 'localhost'
+        };
+        
+        res.cookie('LEO-REST-API', user.authentication.sessionToken,cookieOptions );
         return res.status(200).json(user);
     }catch(error){
         console.log(error);

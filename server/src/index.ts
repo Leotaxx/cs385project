@@ -9,19 +9,18 @@ import router from './router';
 const app = express();
 const path = require('path');
 const port = process.env.PORT||8080;
-app.use(cors({
-    credentials: true, origin: 'http://localhost:3000'}
-));
+const corsOptions = {
+  credentials: true,
+  origin: ['http://localhost:3000', 'https://montblanc.azurewebsites.net']
+};
+
+app.use(cors(corsOptions));
+
 
 app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
-
-const server = http.createServer(app);
-
-server.listen(port,()=>{
-    console.log('Server running on http://localhost:8080/');
-});
+app.use('/',router());
 
 const MONGO_URL ='mongodb+srv://lyleride:lyleride@cluster0.al8raba.mongodb.net/?retryWrites=true&w=majority';
 
@@ -36,5 +35,10 @@ app.use(express.static(path.join(__dirname, '../../client/build')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../../client/build/index.html'));
 });
-app.use('/',router());
+const server = http.createServer(app);
+
+server.listen(port,()=>{
+    console.log('Server running on http://localhost:8080/');
+});
+
 
