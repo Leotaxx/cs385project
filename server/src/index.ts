@@ -29,12 +29,12 @@ mongoose.Promise = Promise;
 mongoose.connect(MONGO_URL);
 mongoose.connection.on('error',(error:Error)=> console.log(error)); 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, '../../client/build')));
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back the client's index.html file.
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  res.sendFile(path.join(__dirname, '../../client/build/index.html'));
 });
 app.use('/',router());
 
