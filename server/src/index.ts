@@ -7,7 +7,8 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import router from './router';
 const app = express();
-
+const path = require('path');
+const port = process.env.PORT||8080;
 app.use(cors({
     credentials: true, origin: 'http://localhost:3000'}
 ));
@@ -18,7 +19,7 @@ app.use(bodyParser.json());
 
 const server = http.createServer(app);
 
-server.listen(8080,()=>{
+server.listen(port,()=>{
     console.log('Server running on http://localhost:8080/');
 });
 
@@ -27,6 +28,13 @@ const MONGO_URL ='mongodb+srv://lyleride:lyleride@cluster0.al8raba.mongodb.net/?
 mongoose.Promise = Promise;
 mongoose.connect(MONGO_URL);
 mongoose.connection.on('error',(error:Error)=> console.log(error)); 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../client/build')));
 
+// The "catchall" handler: for any request that doesn't
+// match one above, send back the client's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
 app.use('/',router());
 

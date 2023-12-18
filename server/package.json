@@ -7,7 +7,6 @@
     "start": "nodemon",
     "build": "tsc",
     "test": "echo \"No tests specified\""
-
   },
   "keywords": [],
   "author": "",
@@ -31,6 +30,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "lodash": "^4.17.21",
-    "mongoose": "^7.6.3"
+    "mongoose": "^7.6.3",
+    "path": "^0.12.7"
   }
 }
