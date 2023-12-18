@@ -24,6 +24,7 @@ export const login = async (req:express.Request,res:express.Response)=>{
             path: '/',
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', // Secure in production
+            SameSite:"Lax",
              // Adjust according to your requirements
             // Dynamically set domain based on environment
             domain: process.env.NODE_ENV === 'production' ? 'montblanc.azurewebsites.net' : 'localhost'
